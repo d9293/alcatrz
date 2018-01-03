@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -13,9 +14,9 @@ namespace ApiHost.Controllers
             using (var httpClient = new HttpClient())
             {
                 string id = "1test2";
-                response = await httpClient.GetAsync($"http://localhost:53266/api/saleinfoapi/prod/{id}");
-                //var response2 = await httpClient.PostAsync(url2);
-                //var response3 = await httpClient.SendAsync(url3);
+                string url = ConfigurationManager.AppSettings["DataBaseApi"].ToString();
+                //response = await httpClient.GetAsync($"http://localhost:53266/api/saleinfoapi/prod/{id}");
+                response = await httpClient.GetAsync(string.Format("http://{0}/api/saleinfoapi/prod/{1}", url, id));
             }
             return response.Content.ReadAsStringAsync().Result;
         }
