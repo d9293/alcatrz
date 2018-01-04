@@ -6,7 +6,7 @@ namespace ApiHost.Controllers
     {
         public ActionResult Index()
         {
-            //var x = GetSaleInfo().Result;
+            var x = GetSaleInfo().Result;
             return View();
         }
 

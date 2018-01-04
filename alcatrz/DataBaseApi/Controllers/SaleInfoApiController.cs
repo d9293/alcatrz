@@ -1,4 +1,8 @@
 ﻿using System.Web.Http;
+using DataBaseApi.RepositoryStub;
+using SyncClassLibrary.Model;
+using System.Configuration;
+using DataBaseApi.Repositories;
 
 namespace DataBaseApi.Controllers
 {
@@ -6,9 +10,15 @@ namespace DataBaseApi.Controllers
     {
         [HttpGet]
         [ActionName("prod")]
-        public string test(string id)
+        public SalesInfoModel test(string id)
         {
-            return id;
+            if (ConfigurationManager.AppSettings["version"] == "stub")
+            {
+                SalesInfoRepositoryStub stub = new SalesInfoRepositoryStub();
+                return stub.GetItems(0);
+            }
+            SalesInfoRepository salesInfo = new SalesInfoRepository();
+            return salesInfo.GetItems(0);
         }
     }
 }
